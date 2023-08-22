@@ -34,10 +34,10 @@ def scrappingData():
 
 def printEarthquakeInfo(data):
     return f"""Deprem Yeri: {data["area"]}, 
-    Koordinatlar: {data["coords"][1]}, {data["coords"][0]}, 
-    Derinlik: {data["depth"]}km, 
-    Mw:, {data["mag"]}
-    --------------------------"""
+Koordinatlar: {data["coords"][1]}, {data["coords"][0]}, 
+Derinlik: {data["depth"]}km, 
+Mw:, {data["mag"]}
+--------------------------"""
 
 def controlEarthquakeData(response):
     data = response.json()
@@ -83,7 +83,7 @@ def app():
         except requests.exceptions.RequestException as e:
             print(f"An error occurred: {e}")
         
-        sleep(6)
+        sleep(45)
         sira += 1
 
 

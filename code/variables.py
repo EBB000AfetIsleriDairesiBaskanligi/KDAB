@@ -7,8 +7,9 @@ Deprem Bildirim Sistemi
 -------------------------------"""
 takenDataMessage = 'Küresel Deprem Bilgileri Alınıyor...'
 alertMessage = "DİKKAT, ULUSLARARASI DEPREM."
-errorMessage = 'Veri alınamıyor...'
-notFoundNewData = 'Yeni Deprem Bilgisi Bulunmamakta.'
+errorMessage = 'Veri Alınamıyor...'
+notFoundNewData = """Yeni Deprem Bilgisi Bulunmamaktadır.
+-------------------------------"""
 
 exportMapFileName = 'harita.html'
 alertFileName = 'alert.mp3'
