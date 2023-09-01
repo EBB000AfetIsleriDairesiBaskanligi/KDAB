@@ -47,19 +47,29 @@ def controlEarthquakeData(response):
     mag = data['features'][0]['properties']['mag']
     return {"area": area, "coords": coordinates, "depth": depth, "mag": mag}
 
+def printControlMessage(controlNo):
+    print(f"Tarih: {controlTime()}, Kontrol No: {controlNo + 1}")
+    sleep(3)
+    print(variables.takenDataMessage)
+    sleep(5)
+
+def voiceProcess():
+    tts = gTTS(variables.alertMessage, lang=variables.language, slow=True)
+    tts.save(variables.alertFileName)
 
 def app():
     print(variables.startMessage)
     locale.setlocale(locale.LC_ALL, '')
     closeWarningsAboutCommendPrompt()
 
-    sira = 0
+    controlNo = 0
     earthquakeInfo = None
     while True:
-        print(f"Tarih: {controlTime()}, Kontrol No: {sira + 1}")
-        sleep(3)
-        print(variables.takenDataMessage)
-        sleep(5)
+        printControlMessage(controlNo)
+        # print(f"Tarih: {controlTime()}, Kontrol No: {controlNo + 1}")
+        # sleep(3)
+        # print(variables.takenDataMessage)
+        # sleep(5)
         try:
             response = scrappingData()
             if response.status_code == 200:
@@ -70,8 +80,9 @@ def app():
                     earthquakeInfo = info
                     if float(earthquakeData["mag"]) > 7.5:
                         mapProcesses([earthquakeData['coords'][1], earthquakeData['coords'][0]], info) 
-                        tts = gTTS(variables.alertMessage, lang=variables.language, slow=True)
-                        tts.save(variables.alertFileName)
+                        voiceProcess()
+                        # tts = gTTS(variables.alertMessage, lang=variables.language, slow=True)
+                        # tts.save(variables.alertFileName)
                         y=0
                         while y<3:
                             os.system(f"start {variables.alertFileName}")
@@ -81,10 +92,10 @@ def app():
             else:
                 print(variables.errorMessage)
         except requests.exceptions.RequestException as e:
-            print(f"An error occurred: {e}")
+            print(variables.errorMessageForRequest)
         
         sleep(45)
-        sira += 1
+        controlNo += 1
 
 
 app()
